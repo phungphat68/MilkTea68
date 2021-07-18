@@ -7,6 +7,9 @@ using MilkTea68.Utilities.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 namespace MilkTea68.Application.Catalog.Products
 {
     class ManageProductService : IManageProductService
@@ -67,14 +70,9 @@ namespace MilkTea68.Application.Catalog.Products
             //1. Select join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId into ppic
-                        from pic in ppic.DefaultIfEmpty()
-                        join c in _context.Categories on pic.CategoryId equals c.Id into picc
-                        from c in picc.DefaultIfEmpty()
-                        join pi in _context.ProductImages on p.Id equals pi.ProductId into ppi
-                        from pi in ppi.DefaultIfEmpty()
-                        where pt.LanguageId == request.LanguageId && pi.IsDefault == true
-                        select new { p, pt, pic, pi };
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId 
+                        join c in _context.Categories on pic.CategoryId equals c.Id                                              
+                        select new { p, pt, pic};
         
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -90,7 +88,7 @@ namespace MilkTea68.Application.Catalog.Products
 
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
-                .Select(x => new ProductVm()
+                .Select(x => new ProductViewModel()
                 {
                     Id = x.p.Id,
                     Name = x.pt.Name,
@@ -105,7 +103,7 @@ namespace MilkTea68.Application.Catalog.Products
                     SeoTitle = x.pt.SeoTitle,
                     Stock = x.p.Stock,
                     ViewCount = x.p.ViewCount,
-                    ThumbnailImage = x.pi.ImagePath
+                    //ThumbnailImage = x.pi.ImagePath
                 }).ToListAsync();
 
             //4. Select and projection

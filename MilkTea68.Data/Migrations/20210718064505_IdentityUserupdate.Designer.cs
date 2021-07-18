@@ -10,8 +10,8 @@ using MilkTea68.Data.EF;
 namespace MilkTea68.Data.Migrations
 {
     [DbContext(typeof(MilkTea68DbContext))]
-    [Migration("20210717065628_IdentityUser")]
-    partial class IdentityUser
+    [Migration("20210718064505_IdentityUserupdate")]
+    partial class IdentityUserupdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,7 +182,7 @@ namespace MilkTea68.Data.Migrations
                         new
                         {
                             Id = new Guid("e29504d2-0f8c-46cd-abf9-ca41f26636ce"),
-                            ConcurrencyStamp = "ba832319-65b9-40d3-9300-ad107628a7fa",
+                            ConcurrencyStamp = "104d3526-4b59-4158-a159-466381e7d04c",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -259,7 +259,7 @@ namespace MilkTea68.Data.Migrations
                         {
                             Id = new Guid("00776e42-9409-4d12-84b4-6a3d7ba170a6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cbfe9ec9-9959-400a-8d94-7f2ab7f3834a",
+                            ConcurrencyStamp = "00ab42b6-6339-4702-9cd2-fbdc85e54b9c",
                             Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "phatph297@gmail.com",
                             EmailConfirmed = true,
@@ -268,7 +268,7 @@ namespace MilkTea68.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "phaph297@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPvhWwX9k8J6BnHhJnTcp7LPtIfxEpt5Ja9qUCVZVtC22bE+Q4jCIYGa2x/cP10J8w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENq8xewjHYik9XLGpZ1cNEwa7Fh2Z2U7KqqZCW2pdL3gGCtTGJcNnNj3HS8XCyCpfQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -624,7 +624,7 @@ namespace MilkTea68.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 7, 17, 13, 56, 27, 392, DateTimeKind.Local).AddTicks(9337),
+                            DateCreated = new DateTime(2021, 7, 18, 13, 45, 4, 169, DateTimeKind.Local).AddTicks(7449),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
