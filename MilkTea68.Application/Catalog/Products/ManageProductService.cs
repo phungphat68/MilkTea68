@@ -71,7 +71,7 @@ namespace MilkTea68.Application.Catalog.Products
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
                         join pic in _context.ProductInCategories on p.Id equals pic.ProductId 
-                        join c in _context.Categories on pic.CategoryId equals c.Id                                              
+                        join c in _context.Categories on pic.CategoryIds equals c.Id                                              
                         select new { p, pt, pic};
         
             //2. filter
@@ -80,7 +80,7 @@ namespace MilkTea68.Application.Catalog.Products
 
             if (request.CategoryIds.Count> 0)
             {
-                query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryId));
+                query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryIds));
             }
 
             //3. Paging
@@ -117,29 +117,39 @@ namespace MilkTea68.Application.Catalog.Products
             return pagedResult;
         }
 
-        public Task<int> Update(ProductUpdateRequest request)
+        public async Task<int> Update(ProductUpdateRequest request)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(request.Id);
+            var productTranlations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.Id
+            && x.LanguageId == request.LanguageId);
+            if (product == null || productTranlations == null) throw new MilkTea68Exception($"Cannot find a product: {request.Id}");
+
+            productTranlations.Name = request.Name;
+            productTranlations.SeoAlias = request.SeoAlias;
+            productTranlations.SeoDescription = request.SeoDescription;
+            productTranlations.SeoTitle = request.SeoTitle;
+            productTranlations.Description = request.Description;
+            productTranlations.Details = request.Details;
+            return await _context.SaveChangesAsync();
+
         }
 
-        public Task<bool> UpdatePrice(int productId, decimal newPrice)
+        public async Task<bool> UpdatePrice(int productId, decimal newPrice)
         {
-            throw new NotImplementedException();
+            var product =await _context.Products.FindAsync(productId);
+            if (product == null) throw new MilkTea68Exception($"Cannot find  with product ID: {productId}");
+            product.Price = newPrice;
+            return await _context.SaveChangesAsync() > 0;
+
         }
 
-        public Task<bool> UpdateStock(int productId, int addedQuantity)
+        public async Task<bool> UpdateStock(int productId, int addedQuantity)
         {
-            throw new NotImplementedException();
-        }
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null) throw new MilkTea68Exception($"Cannot find  with product ID: {productId}");
+            product.Stock += addedQuantity;
+            return await _context.SaveChangesAsync() > 0;
+        }       
 
-        Task<List<ProductViewModel>> IManageProductService.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<int> IManageProductService.Update(ProductUpdateRequest request)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

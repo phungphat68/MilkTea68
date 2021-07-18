@@ -11,7 +11,7 @@ namespace MilkTea68.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductInCategory> builder)
         {
-            builder.HasKey(t => new {t.CategoryId, t.ProductId });
+            builder.HasKey(t => new {t.CategoryIds, t.ProductId });
 
             builder.ToTable("ProductInCategories");
 
@@ -19,7 +19,7 @@ namespace MilkTea68.Data.Configurations
                 .HasForeignKey(pc=>pc.ProductId);
 
             builder.HasOne(t => t.Category).WithMany(pc => pc.ProductInCategories)
-              .HasForeignKey(pc => pc.CategoryId);
+              .HasForeignKey(pc => pc.CategoryIds);
         }
     }
 }

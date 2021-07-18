@@ -82,7 +82,7 @@ namespace MilkTea68.Data.Extensions
                         Description = "Viet Tien Men T-Shirt"
                     });
             modelBuilder.Entity<ProductInCategory>().HasData(
-                new ProductInCategory() { ProductId = 1, CategoryId = 1 }
+                new ProductInCategory() { ProductId = 1, CategoryIds = 1 }
                 );
 
             //any guid

@@ -7,5 +7,6 @@ namespace MilkTea68.Application.Catalog.Products.Dtos.Public
 {
     public class GetProductPagingRequest : PagingRequestBase
     {
+        public int? CategoryIds { get; set; }
     }
 }

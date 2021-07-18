@@ -10,7 +10,7 @@ namespace MilkTea68.Data.Entities
 
         public Product Product { get; set; }
 
-        public int CategoryId { get; set; }
+        public int CategoryIds { get; set; }
 
         public Category Category { get; set; }
     }

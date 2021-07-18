@@ -180,7 +180,7 @@ namespace MilkTea68.Data.Migrations
                         new
                         {
                             Id = new Guid("e29504d2-0f8c-46cd-abf9-ca41f26636ce"),
-                            ConcurrencyStamp = "104d3526-4b59-4158-a159-466381e7d04c",
+                            ConcurrencyStamp = "054d9fa7-e75e-4136-ad77-677c1c3aba20",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +257,7 @@ namespace MilkTea68.Data.Migrations
                         {
                             Id = new Guid("00776e42-9409-4d12-84b4-6a3d7ba170a6"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00ab42b6-6339-4702-9cd2-fbdc85e54b9c",
+                            ConcurrencyStamp = "ed188c60-b6c6-422c-b890-a2c43b59b2a1",
                             Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "phatph297@gmail.com",
                             EmailConfirmed = true,
@@ -266,7 +266,7 @@ namespace MilkTea68.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "phaph297@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAENq8xewjHYik9XLGpZ1cNEwa7Fh2Z2U7KqqZCW2pdL3gGCtTGJcNnNj3HS8XCyCpfQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE4yfjrpH6TUePpvBqc0RUf4utNPAEilh3AVM1kacTSkwsfs42HrQCNKXuOzbx3lUA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -622,7 +622,7 @@ namespace MilkTea68.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 7, 18, 13, 45, 4, 169, DateTimeKind.Local).AddTicks(7449),
+                            DateCreated = new DateTime(2021, 7, 18, 19, 21, 23, 725, DateTimeKind.Local).AddTicks(1108),
                             OriginalPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -672,13 +672,13 @@ namespace MilkTea68.Data.Migrations
 
             modelBuilder.Entity("MilkTea68.Data.Entities.ProductInCategory", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("CategoryIds")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("CategoryId", "ProductId");
+                    b.HasKey("CategoryIds", "ProductId");
 
                     b.HasIndex("ProductId");
 
@@ -687,7 +687,7 @@ namespace MilkTea68.Data.Migrations
                     b.HasData(
                         new
                         {
-                            CategoryId = 1,
+                            CategoryIds = 1,
                             ProductId = 1
                         });
                 });
@@ -940,7 +940,7 @@ namespace MilkTea68.Data.Migrations
                 {
                     b.HasOne("MilkTea68.Data.Entities.Category", "Category")
                         .WithMany("ProductInCategories")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CategoryIds")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
