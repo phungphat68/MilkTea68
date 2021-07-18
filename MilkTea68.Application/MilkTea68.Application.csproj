@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MilkTea68.Data\MilkTea68.Data.csproj" />
+    <ProjectReference Include="..\MilkTea68.Utilities\MilkTea68.Utilities.csproj" />
+  </ItemGroup>
+
+</Project>
