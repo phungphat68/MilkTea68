@@ -1,7 +1,4 @@
-﻿using MilkTea68.Application.Catalog.Products.Dtos;
-using MilkTea68.Application.Catalog.Products.Dtos.Manage;
-using MilkTea68.Application.Dtos;
-using MilkTea68.Data.EF;
+﻿using MilkTea68.Data.EF;
 using MilkTea68.Data.Entities;
 using MilkTea68.Utilities.Exceptions;
 using System;
@@ -9,15 +6,28 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using MilkTea68.ViewModels.Common;
+using MilkTea68.ViewModels.Catelog.Products;
+using System.Net.Http.Headers;
+using System.IO;
+using MilkTea68.Application.Common;
+using Microsoft.AspNetCore.Http;
 
 namespace MilkTea68.Application.Catalog.Products
 {
     class ManageProductService : IManageProductService
     {
         private readonly MilkTea68DbContext _context;
-        public ManageProductService(MilkTea68DbContext context)
+        private readonly IStorageService _storageService;
+        public ManageProductService(MilkTea68DbContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
+        }
+
+        public Task<int> AddImage(int productId, List<IFormFile> files)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task AddViewCount(int productId)
@@ -48,9 +58,26 @@ namespace MilkTea68.Application.Catalog.Products
                     SeoTitle = request.SeoTitle,
                     LanguageId = request.LanguageId
                     }
-                
+
                 }
             };
+            //Save image
+            if (request.ThumbnailImage != null)
+            {
+                product.ProductImages = new List<ProductImage>()
+                {
+                    new ProductImage()
+                    {
+                        Caption = "Thumbnail image",
+                        DateCreated = DateTime.Now,
+                        FileSize = request.ThumbnailImage.Length,
+                        ImagePath = await this.SaveFile(request.ThumbnailImage),
+                        IsDefault = true,
+                        SortOrder = 1
+
+                    }
+                };
+            }
             _context.Products.Add(product);
             return await _context.SaveChangesAsync();
         }
@@ -59,26 +86,33 @@ namespace MilkTea68.Application.Catalog.Products
         {
             var product = await _context.Products.FindAsync(productId);
             if (product == null) throw new MilkTea68Exception($"cannot find a product: {productId}");
+            var images = _context.ProductImages.Where(i => i.ProductId == productId);
+            foreach(var image in images)
+            {
+                await _storageService.DeleteFileAsync(image.ImagePath);
+            }    
             _context.Products.Remove(product);
-           return await _context.SaveChangesAsync();
+
+           
+            return await _context.SaveChangesAsync();
         }
 
 
 
-        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
         {
             //1. Select join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.Id equals pt.ProductId
-                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId 
-                        join c in _context.Categories on pic.CategoryIds equals c.Id                                              
-                        select new { p, pt, pic};
-        
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        join c in _context.Categories on pic.CategoryIds equals c.Id
+                        select new { p, pt, pic };
+
             //2. filter
             if (!string.IsNullOrEmpty(request.Keyword))
                 query = query.Where(x => x.pt.Name.Contains(request.Keyword));
 
-            if (request.CategoryIds.Count> 0)
+            if (request.CategoryIds.Count > 0)
             {
                 query = query.Where(p => request.CategoryIds.Contains(p.pic.CategoryIds));
             }
@@ -117,6 +151,18 @@ namespace MilkTea68.Application.Catalog.Products
             return pagedResult;
         }
 
+        
+
+        public Task<List<ProductImageViewModel>> GetListImage(int productId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> RemoveImage(int imageId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> Update(ProductUpdateRequest request)
         {
             var product = await _context.Products.FindAsync(request.Id);
@@ -130,13 +176,30 @@ namespace MilkTea68.Application.Catalog.Products
             productTranlations.SeoTitle = request.SeoTitle;
             productTranlations.Description = request.Description;
             productTranlations.Details = request.Details;
+            //Save image
+            if (request.ThumbnailImage != null)
+            {
+                var thumbnailImage = await _context.ProductImages.FirstOrDefaultAsync(i => i.IsDefault == true && i.ProductId == request.Id);
+                    if(thumbnailImage != null)
+                    {
+                    thumbnailImage.FileSize = request.ThumbnailImage.Length;
+                    thumbnailImage.ImagePath = await this.SaveFile(request.ThumbnailImage);
+                    _context.ProductImages.Update(thumbnailImage);
+                    }
+                
+            }
             return await _context.SaveChangesAsync();
 
         }
 
+        public Task<int> UpdateImage(int imageId, string caption, bool isDefault)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> UpdatePrice(int productId, decimal newPrice)
         {
-            var product =await _context.Products.FindAsync(productId);
+            var product = await _context.Products.FindAsync(productId);
             if (product == null) throw new MilkTea68Exception($"Cannot find  with product ID: {productId}");
             product.Price = newPrice;
             return await _context.SaveChangesAsync() > 0;
@@ -149,7 +212,14 @@ namespace MilkTea68.Application.Catalog.Products
             if (product == null) throw new MilkTea68Exception($"Cannot find  with product ID: {productId}");
             product.Stock += addedQuantity;
             return await _context.SaveChangesAsync() > 0;
-        }       
+        }
+        private async Task<string> SaveFile(Microsoft.AspNetCore.Http.IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return fileName;
+        }
 
     }
 }

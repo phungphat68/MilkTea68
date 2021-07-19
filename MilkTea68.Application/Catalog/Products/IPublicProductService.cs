@@ -1,13 +1,15 @@
-﻿using MilkTea68.Application.Catalog.Products.Dtos;
-using MilkTea68.Application.Catalog.Products.Dtos.Public;
-
-using MilkTea68.Application.Dtos;
+﻿
+using MilkTea68.ViewModels.Catelog.Products;
+using MilkTea68.ViewModels.Common;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MilkTea68.Application.Catalog.Products
 {
     public interface IPublicProductService
     {
-        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetProductPagingRequest request);
+        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request);
+
+        Task<List<ProductViewModel>> GetAll();
     }
 }

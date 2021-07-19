@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using MilkTea68.Application.Catalog.Products.Dtos;
-using MilkTea68.Application.Catalog.Products.Dtos.Public;
-using MilkTea68.Application.Dtos;
 using MilkTea68.Data.EF;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using MilkTea68.ViewModels.Common;
+using MilkTea68.ViewModels.Catelog.Products;
 
 namespace MilkTea68.Application.Catalog.Products
 {
@@ -20,8 +19,37 @@ namespace MilkTea68.Application.Catalog.Products
             _context = context;
         }
 
-       
-        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetProductPagingRequest request)
+        public async Task<List<ProductViewModel>> GetAll()
+        {
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.Id equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.Id equals pic.ProductId
+                        join c in _context.Categories on pic.CategoryIds equals c.Id
+                        select new { p, pt, pic };
+
+      
+
+            var data = await query.Select(x => new ProductViewModel()
+                {
+                    Id = x.p.Id,
+                    Name = x.pt.Name,
+                    DateCreated = x.p.DateCreated,
+                    Description = x.pt.Description,
+                    Details = x.pt.Details,
+                    LanguageId = x.pt.LanguageId,
+                    OriginalPrice = x.p.OriginalPrice,
+                    Price = x.p.Price,
+                    SeoAlias = x.pt.SeoAlias,
+                    SeoDescription = x.pt.SeoDescription,
+                    SeoTitle = x.pt.SeoTitle,
+                    Stock = x.p.Stock,
+                    ViewCount = x.p.ViewCount,
+                    //ThumbnailImage = x.pi.ImagePath
+                }).ToListAsync();
+            return data;
+        }
+
+        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(GetPublicProductPagingRequest request)
         {
             //1. Select join
             var query = from p in _context.Products
@@ -32,9 +60,9 @@ namespace MilkTea68.Application.Catalog.Products
 
             //2. filter
 
-            if (request.CategoryIds.HasValue && request.CategoryIds.Value > 0)
+            if (request.CategoryId.HasValue && request.CategoryId.Value > 0)
             {
-                query = query.Where(p => p.pic.CategoryIds == request.CategoryIds);
+                query = query.Where(p => p.pic.CategoryIds == request.CategoryId);
             }
 
             //3. Paging

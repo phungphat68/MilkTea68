@@ -86,8 +86,8 @@ namespace MilkTea68.Data.Extensions
                 );
 
             //any guid
-            var roleId = new Guid("E29504D2-0F8C-46CD-ABF9-CA41F26636CE");
-            var adminId = new Guid("00776E42-9409-4D12-84B4-6A3D7BA170A6");
+            var roleId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
+            var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
             modelBuilder.Entity<AppRole>().HasData(new AppRole
             {
                 Id = roleId,

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MilkTea68.Application\MilkTea68.Application.csproj" />
+    <ProjectReference Include="..\MilkTea68.Data\MilkTea68.Data.csproj" />
+    <ProjectReference Include="..\MilkTea68.Utilities\MilkTea68.Utilities.csproj" />
+    <ProjectReference Include="..\MilkTea68.ViewModels\MilkTea68.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
