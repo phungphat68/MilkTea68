@@ -1,5 +1,5 @@
-﻿@using MilkTea68.ViewModels.System.Users;
-@model LoginRequest;
+﻿@using MilkTea68.ViewModels.System.Users
+@model LoginRequest
 @{
     Layout = null;
 }
@@ -28,7 +28,7 @@
                                 <div class="card-body">
                                     <form asp-action="Login" asp-controller="User" method="post">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" aspfor="UserName" type="text" placeholder="Nhập tài khoản" />
+                                            <input class="form-control" asp-for="UserName" type="text" placeholder="Nhập tài khoản" />
                                             <label>Tài khoản</label>
                                         </div>
                                         <div class="form-floating mb-3">
