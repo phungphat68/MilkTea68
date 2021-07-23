@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{971AA6DD-A8E9-4E7E-A3FF-259484F2022D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Solution Items", "0.Solution Items", "{971AA6DD-A8E9-4E7E-A3FF-259484F2022D}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.md = Readme.md
 	EndProjectSection
@@ -18,7 +18,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MilkTea68.Utilities", "Milk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MilkTea68.ViewModels", "MilkTea68.ViewModels\MilkTea68.ViewModels.csproj", "{2F504410-7DC2-4870-AA13-3B6B264A7E51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MilkTea68.BackendApi", "MilkTea68.BackendApi\MilkTea68.BackendApi.csproj", "{B7C0ADA7-927B-4965-9346-AE59E6F45F45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MilkTea68.BackendApi", "MilkTea68.BackendApi\MilkTea68.BackendApi.csproj", "{B7C0ADA7-927B-4965-9346-AE59E6F45F45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Infrastructure", "1.Infrastructure", "{A3F75924-EE97-4A1E-B752-5625A23E8169}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Domain", "2.Domain", "{70BE0176-FBAF-4538-9BAE-8CA98FC5BCB4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Hosts", "3.Hosts", "{F15CDC37-27DE-4B6E-80E6-B07E298754C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MilkTea68.AdminApp", "MilkTea68.AdminApp\MilkTea68.AdminApp.csproj", "{A553EDF3-65F2-4F92-AF64-A61E823B39EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,12 +58,22 @@ Global
 		{B7C0ADA7-927B-4965-9346-AE59E6F45F45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7C0ADA7-927B-4965-9346-AE59E6F45F45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7C0ADA7-927B-4965-9346-AE59E6F45F45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A553EDF3-65F2-4F92-AF64-A61E823B39EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A553EDF3-65F2-4F92-AF64-A61E823B39EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A553EDF3-65F2-4F92-AF64-A61E823B39EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A553EDF3-65F2-4F92-AF64-A61E823B39EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B7C0ADA7-927B-4965-9346-AE59E6F45F45} = {971AA6DD-A8E9-4E7E-A3FF-259484F2022D}
+		{2878A445-B9BE-46F3-9930-4B00CE134CE2} = {70BE0176-FBAF-4538-9BAE-8CA98FC5BCB4}
+		{A670B512-9098-4D36-967B-489279A625FE} = {F15CDC37-27DE-4B6E-80E6-B07E298754C2}
+		{88A858E9-7F39-472F-B494-F7FD4452FC37} = {70BE0176-FBAF-4538-9BAE-8CA98FC5BCB4}
+		{FB02A0AB-26F9-4B9A-B322-EA5FE85A318A} = {A3F75924-EE97-4A1E-B752-5625A23E8169}
+		{2F504410-7DC2-4870-AA13-3B6B264A7E51} = {A3F75924-EE97-4A1E-B752-5625A23E8169}
+		{B7C0ADA7-927B-4965-9346-AE59E6F45F45} = {F15CDC37-27DE-4B6E-80E6-B07E298754C2}
+		{A553EDF3-65F2-4F92-AF64-A61E823B39EF} = {F15CDC37-27DE-4B6E-80E6-B07E298754C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {261567A6-37F4-4258-BD72-A8142E2F3DCE}

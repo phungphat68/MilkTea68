@@ -1,10 +1,6 @@
 ﻿using MilkTea68.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MilkTea68.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MilkTea68.Data.Configurations
 {

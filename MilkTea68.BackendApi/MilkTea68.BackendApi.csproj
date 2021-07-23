@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.17" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
@@ -13,6 +16,10 @@
     <ProjectReference Include="..\MilkTea68.Data\MilkTea68.Data.csproj" />
     <ProjectReference Include="..\MilkTea68.Utilities\MilkTea68.Utilities.csproj" />
     <ProjectReference Include="..\MilkTea68.ViewModels\MilkTea68.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\user-content\" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using System.Text;
 namespace MilkTea68.ViewModels.Catelog.Products
 {
     public class GetPublicProductPagingRequest : PagingRequestBase
-    {
+    {        
         public int? CategoryId { get; set; }
     }
 }

@@ -8,4 +8,8 @@ namespace MilkTea68.Utilities.Constants
     {
         public const string MainConnectionString = "MilkTea68Db";
     }
+    public class ProductConstants
+    {
+        public const string NA = "N/A";
+    }
 }

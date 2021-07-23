@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:20989",
-      "sslPort": 44330
+      "applicationUrl": "http://localhost:8369",
+      "sslPort": 44311
     }
   },
   "profiles": {
@@ -15,11 +15,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MilkTea68.BackendApi": {
+    "MilkTea68.AdminApp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:5001",
+      "applicationUrl": "https://localhost:5002",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
